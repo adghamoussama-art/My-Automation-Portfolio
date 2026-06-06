@@ -1,14 +1,25 @@
-# ultimate-n8n-ai-workflows
-Une collection de workflows n8n avancés intégrant l'Intelligence Artificielle (Gemini) pour l'automatisation de tâches : assistants Telegram intelligents (téléchargement de médias, transcription et traduction de vidéos YouTube) et système automatisé de qualification de leads
-n8n Automation & AI Hub
-Ce dépôt regroupe trois projets d'automatisation avancés basés sur n8n et l'Intelligence Artificielle. L'espace est organisé en trois dossiers distincts. Chaque dossier contient exactement :
-Un fichier explicatif qui détaille le fonctionnement du projet.
-Deux images (captures d'écran du workflow).
-Une vidéo de démonstration en action.
-📁 Présentation des 3 Dossiers
-1️⃣ Assistant Telegram Hybride : IA & Téléchargement Médias
-Ce workflow gère de manière autonome un bot Telegram. Il utilise une logique conditionnelle pour séparer les messages textuels, traités par l'IA (Google Gemini), des liens de réseaux sociaux (Instagram, TikTok, YouTube) dont il extrait et télécharge automatiquement les vidéos pour les renvoyer à l'utilisateur.
-2️⃣ Transcription et Traduction Automatique YouTube
-Ce workflow récupère la transcription brute d'une vidéo YouTube à partir de son URL, propose un choix interactif de langue sur Telegram, traduit le texte via Gemini, puis génère un fichier HTML interactif et stylisé avec les repères temporels (timestamps). Attention : si l'entrée n'est pas un lien valide, le flux s'arrête immédiatement dès le deuxième nœud.
-3️⃣ Qualification de Leads Automatisée via n8n et IA
-Ce projet capture et qualifie automatiquement les prospects selon leur budget (seuil à 5000 dollars). La branche Premium utilise l'IA pour analyser la pertinence de la demande et générer un rapport stratégique par email, tandis que la branche secondaire stocke les données et utilise l'IA pour générer un rapport quotidien épuré destiné au gestionnaire
+Qualification de Leads Automatisée via n8n et IA
+Ce projet présente un workflow d'automatisation conçu sur n8n pour capturer, qualifier et traiter automatiquement les prospects en fonction de leur budget, en intégrant l'intelligence artificielle pour l'analyse des besoins.
+Flux de Travail
+1. Entrée et Notification
+Formulaire n8n : Le prospect renseigne son nom, son email, son budget et le type de besoin.
+Slack : Notification instantanée avec l'ensemble des données envoyée sur un canal dédié.
+Aiguillage (Node IF) : Orientation automatique du lead selon sa capacité financière (seuil à 5000 dollars).
+2. Branche Premium (Budget supérieur à 5000 dollars)
+Double Opt-in : Envoi d'un email de confirmation au format HTML. Le système se met en pause via un nœud Wait jusqu'au clic sur le bouton relié à un Webhook.
+Suggestions de Projets : Après validation, le prospect reçoit une liste d'idées de business (E-commerce, etc.) incluant une option "Other".
+Analyse d'Idée par l'IA :
+Le choix de l'option "Other" ouvre une interface de réponse automatique dans Gmail.
+Un Gmail Trigger intercepte la description du projet envoyée par le prospect.
+L'IA valide le sérieux de la demande (attribution de la valeur it_is_lead).
+Si la condition est remplie, l'IA génère un rapport d'analyse détaillant les forces, les faiblesses et un conseil stratégique, envoyé au prospect dans un template HTML professionnel.
+3. Branche Secondaire (Budget inférieur à 5000 dollars)
+Stockage : Enregistrement immédiat des coordonnées du prospect dans un tableau Google Sheets.
+Rapport Quotidien : Chaque jour à 19h00, un nœud JavaScript extrait les données et les transforme en texte.
+Décision Finale : L'IA convertit ces informations en un tableau HTML épuré envoyé directement au propriétaire du projet, lui permettant de décider rapidement des profils à recontacter.
+Stack Technique
+Orchestration : n8n
+Communication : Slack, Gmail
+Base de données : Google Sheets
+Intelligence Artificielle : AI et LLM Nodes (n8n)
+Formatage : JavaScript, templates HTML / CSS
