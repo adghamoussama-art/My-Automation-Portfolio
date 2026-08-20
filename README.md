@@ -7,9 +7,22 @@ Each folder contains a complete project with its own documentation and demonstra
 
 ## 📂 Projects
 
-### 🔽 N8N Media Downloader
+### 💾 N8N Media Downloader
 
 An n8n workflow that automatically downloads media from supported sources.
+
+Inside the folder:
+
+* 📄 `README.md` — Workflow documentation
+* 🖼️ Picture 1 — Workflow overview
+* 🖼️ Picture 2 — Workflow result
+* 🎥 Video — Workflow demonstration
+
+---
+
+### 🛒 N8N SalesSync Automations
+
+An n8n workflow that automatically processes and manage the sales.
 
 Inside the folder:
 
@@ -56,7 +69,13 @@ My Automation Portfolio/
 │   ├── 🖼️ Picture 1
 │   ├── 🖼️ Picture 2
 │   └── 🎥 Video
-│
+|
+│├── 📁 N8N SalesSync Automations/
+│   ├── 📄 README.md
+│   ├── 🖼️ Picture 1
+│   ├── 🖼️ Picture 2
+│   └── 🎥 Video
+|
 ├── 📁 N8N Youtube transcriptor/
 │   ├── 📄 README.md
 │   ├── 🖼️ Picture 1
