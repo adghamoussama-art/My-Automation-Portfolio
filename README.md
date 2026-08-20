@@ -1,4 +1,4 @@
-# 🚀 My Automation Portfolio
+#  My Automation Portfolio
 
 Welcome to my **automation portfolio**!
 This repository showcases projects and workflows that I have built using **n8n, AI, APIs, and automation tools**.
