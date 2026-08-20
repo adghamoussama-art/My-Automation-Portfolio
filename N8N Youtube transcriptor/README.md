@@ -1,42 +1,166 @@
-Workflow Description: Transcription and HTML Formatting Automation
+# 🎬 YouTube Transcription & Interactive HTML Generator
 
-This workflow automates the process of retrieving, translating, formatting, and sending YouTube video transcriptions as an interactive HTML file via a Telegram bot.
+A fully automated **n8n workflow** that retrieves YouTube video transcripts, translates them into the user's preferred language, and generates a polished **interactive HTML file** that is delivered directly through a Telegram bot.
 
-1. Receiving and Extracting the YouTube ID
+The workflow combines **Telegram, YouTube transcript extraction, JavaScript, Google Gemini, HTML, and automation logic** to turn a simple YouTube link into a structured and interactive translated transcript.
 
-The cycle begins when the user sends a YouTube link to the custom Telegram bot (Trigger Node). The next node extracts and isolates only the video ID from the received URL to prepare for the querying step.
+## 🔄 How It Works
 
-⚠️ Note: If the input provided by the user is not a valid link, the automation process stops immediately at the second node.
+### 1. 📩 YouTube Link & Video ID Extraction
 
-2. Retrieving and Cleaning the Transcript
+The workflow starts when the user sends a YouTube link to the custom Telegram bot.
 
-Once the ID is obtained, a dedicated node retrieves the raw transcript of the video. Then, another node intervenes to clean and restructure the text to make it perfectly readable and understandable.
+A **Telegram Trigger** receives the message, and the following node extracts the unique **YouTube Video ID** from the URL.
 
-3. Language Selection (Bot Interaction)
+The workflow also validates the input:
 
-The Telegram bot sends an interactive message to the user, asking them to choose their desired translation language.
+* ✅ Valid YouTube link → Continue processing
+* ❌ Invalid input → Workflow stops immediately
 
-4. Conditional Routing (Code Switch)
+This prevents unnecessary API requests and processing when the provided link is invalid.
 
-The data then passes through a code node that acts as a switch based on the user's choice:
+---
 
-1: English
-2: Spanish
-3: French
-(And so on for the other options)
+## 📝 2. Retrieve & Clean the Transcript
 
-5. AI Generation and Translation
+Once the YouTube ID has been extracted, the workflow retrieves the video's **raw transcript**.
 
-The selected language is dynamically injected into the prompt sent to Gemini. To optimize the model's performance and avoid overload errors, Gemini focuses only on translating and structuring the text.
+A dedicated processing node then cleans and restructures the transcript to make it:
 
-6. Advanced HTML/JS Formatting
+* Easier to read
+* Properly structured
+* Free from unnecessary formatting
+* Ready for translation and HTML generation
 
-To reduce Gemini's workload, a separate node takes over to generate the HTML and JavaScript code. This code applies a polished design and integrates a JS script to ensure a smooth transition from one line to another, while strictly respecting the timestamp (time marker) of each sentence.
+The original timestamps are preserved so they can later be synchronized with the interactive HTML output.
 
-7. File Conversion and Sending
+---
 
-Finally, the textual data and code are converted into raw data, then transformed into an actual .html file. The final node of the workflow sends this file directly to the user on Telegram.
+## 🌍 3. Language Selection
 
-Technical Summary of the Steps:
+After retrieving the transcript, the Telegram bot sends an **interactive message** asking the user to select their preferred translation language.
 
-Telegram Input ➔ ID Extraction & Validation ➔ Transcript Fetch ➔ Text Formatting ➔ Language Selection ➔ Switch Code ➔ Gemini Translation ➔ HTML/JS Generator ➔ Data Conversion ➔ HTML File Creation ➔
+For example:
+
+```text id="r9h3qx"
+1 → English
+2 → Spanish
+3 → French
+...
+```
+
+The user's selection determines which language will be used during the translation process.
+
+---
+
+## 🔀 4. Conditional Language Routing
+
+The user's selection is processed by a **Code node** that acts as a dynamic switch.
+
+The selected number is mapped to its corresponding language:
+
+```text id="a7k2lm"
+1 → English
+2 → Spanish
+3 → French
+4 → Other supported language
+...
+```
+
+The selected language is then dynamically passed to the AI processing stage.
+
+---
+
+## 🤖 5. AI Translation with Gemini
+
+The transcript is sent to **Google Gemini** together with the language selected by the user.
+
+Gemini is responsible for:
+
+* Translating the transcript
+* Preserving the original meaning
+* Structuring the translated text
+* Maintaining the relationship between sentences and timestamps
+
+The workflow intentionally separates translation from HTML generation to reduce the amount of work performed by the AI model and avoid unnecessary processing or overload errors.
+
+---
+
+## 💻 6. Interactive HTML & JavaScript Generation
+
+After the translation is completed, a dedicated node generates the **HTML and JavaScript code**.
+
+Instead of asking Gemini to handle the entire HTML generation process, this stage is handled separately to improve reliability and performance.
+
+The generated HTML includes:
+
+* 🎨 A polished and readable interface
+* 📝 Structured transcript text
+* ⏱️ Original timestamps
+* ▶️ Interactive sentence-by-sentence navigation
+* 🔄 Smooth transitions between transcript lines
+* 💻 JavaScript functionality for synchronization
+
+The JavaScript ensures that the transcript moves smoothly from one sentence to the next while respecting the **timestamp of each sentence**.
+
+---
+
+## 📄 7. HTML File Creation & Delivery
+
+Once the translated content and HTML/JavaScript code are ready, the workflow converts the generated data into an actual **`.html` file**.
+
+The completed file is then automatically sent back to the user through Telegram.
+
+The user can open the file in a browser and interact with the translated transcript.
+
+---
+
+## 🧩 Workflow Architecture
+
+```text id="v5q1nz"
+Telegram User
+      ↓
+YouTube Link
+      ↓
+Telegram Trigger
+      ↓
+Extract & Validate Video ID
+      ↓
+Fetch Transcript
+      ↓
+Clean & Structure Transcript
+      ↓
+Language Selection
+      ↓
+Code Switch
+      ↓
+Gemini Translation
+      ↓
+HTML / JavaScript Generator
+      ↓
+Convert Data
+      ↓
+Create .html File
+      ↓
+Send File via Telegram
+```
+
+## 🛠️ Technologies Used
+
+* **n8n** — Workflow automation and orchestration
+* **Telegram Bot API** — User interaction and file delivery
+* **YouTube** — Video and transcript source
+* **Google Gemini** — Translation and text structuring
+* **JavaScript** — Data processing, routing, and interactive HTML functionality
+* **HTML / CSS** — Interactive transcript interface
+* **Timestamps** — Sentence-level synchronization
+
+## 🎯 Project Goal
+
+The goal of this project was to automate the entire process of transforming a **YouTube video into a translated, structured, and interactive transcript**.
+
+Instead of manually downloading a transcript, translating it, formatting it, and creating an HTML document, the user only needs to **send a YouTube link and select a language**.
+
+The workflow handles everything else automatically — from **video ID extraction and transcript retrieval to AI translation, HTML generation, and Telegram delivery**.
+
+This project demonstrates practical experience with **n8n workflow automation, API integration, AI-powered translation, JavaScript, HTML generation, conditional logic, data processing, and automated Telegram interactions**.
