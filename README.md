@@ -1,26 +1,26 @@
-Qualification de Leads Automatisée via n8n et IA
-Ce projet présente un workflow d'automatisation conçu sur n8n pour capturer, qualifier et traiter automatiquement les prospects en fonction de leur budget, en intégrant l'intelligence artificielle pour l'analyse des besoins.
+Automated Lead Qualification via n8n and AI
+This project presents an automation workflow designed on n8n to capture, qualify, and process leads automatically based on their budget, integrating artificial intelligence for needs analysis.
 
-Flux de Travail
+Workflow
 
-1. Entrée et Notification
-Formulaire n8n : Le prospect renseigne son nom, son email, son budget et le type de besoin.
-Slack : Notification instantanée avec l'ensemble des données envoyée sur un canal dédié.
-Aiguillage (Node IF) : Orientation automatique du lead selon sa capacité financière (seuil à 5000 dollars).
+1. Entry and Notification
+n8n Form: The prospect enters their name, email, budget, and type of need.
+Slack: Instant notification sent with all submitted data to a dedicated channel.
+Routing (IF Node): Automatic lead routing based on financial capacity ($5,000 threshold).
 
-2. Branche Premium (Budget supérieur à 5000 dollars)
-Double Opt-in : Envoi d'un email de confirmation au format HTML. Le système se met en pause via un nœud Wait jusqu'au clic sur le bouton relié à un Webhook.
-Suggestions de Projets : Après validation, le prospect reçoit une liste d'idées de business (E-commerce, etc.) incluant une option "Other".
-Analyse d'Idée par l'IA : Le choix de l'option "Other" ouvre une interface de réponse automatique dans Gmail. Un Gmail Trigger intercepte la description du projet envoyée par le prospect. L'IA valide le sérieux de la demande (attribution de la valeur it_is_lead). Si la condition est remplie, l'IA génère un rapport d'analyse détaillant les forces, les faiblesses et un conseil stratégique, envoyé au prospect dans un template HTML professionnel.
+2. Premium Branch (Budget over $5,000)
+Double Opt-in: Confirmation email sent in HTML format. The system pauses via a Wait node until the button linked to a Webhook is clicked.
+Project Suggestions: After validation, the prospect receives a list of business ideas (E-commerce, etc.) including an "Other" option.
+Idea Analysis by AI: Selecting the "Other" option opens an automated response interface in Gmail. A Gmail Trigger intercepts the project description sent by the prospect. The AI validates the seriousness of the request (assigning the value it_is_lead). If the condition is met, the AI generates an analysis report detailing strengths, weaknesses, and strategic advice, sent to the prospect in a professional HTML template.
 
-3. Branche Secondaire (Budget inférieur à 5000 dollars)
-Stockage : Enregistrement immédiat des coordonnées du prospect dans un tableau Google Sheets.
-Rapport Quotidien : Chaque jour à 19h00, un nœud JavaScript extrait les données et les transforme en texte.
-Décision Finale : L'IA convertit ces informations en un tableau HTML épuré envoyé directement au propriétaire du projet, lui permettant de décider rapidement des profils à recontacter.
+3. Secondary Branch (Budget under $5,000)
+Storage: Immediate logging of the prospect's contact information in a Google Sheets table.
+Daily Report: Every day at 7:00 PM, a JavaScript node extracts the data and transforms it into text.
+Final Decision: The AI converts this information into a clean HTML table sent directly to the project owner, allowing them to quickly decide which profiles to contact back.
 
-Stack Technique
-Orchestration : n8n
-Communication : Slack, Gmail
-Base de données : Google Sheets
-Intelligence Artificielle : AI et LLM Nodes (n8n)
-Formatage : JavaScript, templates HTML / CSS
+Tech Stack
+Orchestration: n8n
+Communication: Slack, Gmail
+Database: Google Sheets
+Artificial Intelligence: AI and LLM Nodes (n8n)
+Formatting: JavaScript, HTML / CSS templates
